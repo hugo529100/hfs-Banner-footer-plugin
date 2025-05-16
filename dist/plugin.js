@@ -1,9 +1,11 @@
-exports.version = 1.8
+exports.version = 1.9
 exports.description = "Displays a customizable banner and footer, with optional network-based GIF filtering."
 exports.apiRequired = 12.0
 exports.frontend_js = 'main.js'
 exports.frontend_css = 'style.css'
 exports.repo = "Hug3O/Banner-footer-plugin"
+
+
 exports.config = {
   enableBanner: { type: 'boolean', label: 'Show banner section', defaultValue: true, frontend: true },
 
@@ -45,13 +47,12 @@ exports.config = {
     frontend: true
   },
 
-networkFilterEnabled: {
-  type: 'boolean',
-  label: 'Enable GIF filtering for slow networks (external IPs only)',
-  defaultValue: false,
-  frontend: true
-},
-
+  networkFilterEnabled: {
+    type: 'boolean',
+    label: 'Enable GIF filtering for slow networks (external IPs only)',
+    defaultValue: false,
+    frontend: true
+  },
 
   enableFooter: {
     type: 'boolean',

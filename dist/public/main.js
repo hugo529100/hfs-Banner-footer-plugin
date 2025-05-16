@@ -3,13 +3,23 @@
   if (!cfg) return
 
   insertBannerHTML()
+
+  // Inject CSS variables for dynamic height and font size
+  document.documentElement.style.setProperty(
+    '--banner-footer-plugin-bannerHeight',
+    cfg.bannerHeight || 22
+  )
+  document.documentElement.style.setProperty(
+    '--banner-footer-plugin-footerSize',
+    cfg.footerSize || 0.5
+  )
+
   scrollToTopOnceListIsReady()
 
-  // === Banner logic ===
-  if (cfg.enableBanner) {
-    const placeholder = document.getElementById('loadingPlaceholder')
-    const img = document.getElementById('randomImage')
+  const placeholder = document.getElementById('loadingPlaceholder')
+  const img = document.getElementById('randomImage')
 
+  if (cfg.enableBanner) {
     if (cfg.bannerMode === 'file' && cfg.bannerFile) {
       const temp = new Image()
       temp.onload = () => {
@@ -29,20 +39,19 @@
       const allImages = listText.split(/\s+/).filter(x => /\.(jpe?g|png|gif|webp)$/i.test(x))
 
       let images = allImages
-if (cfg.networkFilterEnabled) {
-  const host = location.hostname
-  const isPrivateIP =
-    host === '127.0.0.1' ||
-    host === 'localhost' ||
-    /^10\./.test(host) ||
-    /^192\.168\./.test(host) ||
-    /^172\.(1[6-9]|2\d|3[01])\./.test(host)
+      if (cfg.networkFilterEnabled) {
+        const host = location.hostname
+        const isPrivateIP =
+          host === '127.0.0.1' ||
+          host === 'localhost' ||
+          /^10\./.test(host) ||
+          /^192\.168\./.test(host) ||
+          /^172\.(1[6-9]|2\d|3[01])\./.test(host)
 
-  if (!isPrivateIP) {
-    images = allImages.filter(x => !x.toLowerCase().endsWith('.gif'))
-  }
-}
-
+        if (!isPrivateIP) {
+          images = allImages.filter(x => !x.toLowerCase().endsWith('.gif'))
+        }
+      }
 
       if (images.length && img) {
         const selected = images[Math.floor(Math.random() * images.length)]
@@ -62,7 +71,6 @@ if (cfg.networkFilterEnabled) {
     }
   }
 
-  // === Footer logic ===
   if (cfg.enableFooter && cfg.footerText) {
     const footer = document.createElement('div')
     footer.className = 'footer-w3l'
@@ -73,7 +81,7 @@ if (cfg.networkFilterEnabled) {
     document.body.appendChild(footer)
   }
 
-  // === Utils ===
+  // ====== Utility Functions ======
   function insertBannerHTML() {
     const target = document.querySelector('#root > div') || document.body
     const banner = document.createElement('div')
