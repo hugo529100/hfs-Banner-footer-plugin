@@ -32,7 +32,7 @@
   padding: 4px;
   overflow: hidden;
   background: transparent;
-  margin-bottom: 1px;
+  margin-bottom: -2px;
 }
 
 
@@ -60,6 +60,7 @@
   line-height: 0.5em;
   padding: 2px;
   margin-bottom: 2px; /* ⬅️ leave breathing space from bottom */
+  z-index: -10;
 }
 
 .footer-w3l p,
