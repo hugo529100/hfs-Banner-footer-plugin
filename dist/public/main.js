@@ -2,24 +2,19 @@
   const cfg = HFS.getPluginConfig('banner-footer-plugin')
   if (!cfg) return
 
-  insertBannerHTML()
-
-  // Inject CSS variables for dynamic height and font size
-  document.documentElement.style.setProperty(
-    '--banner-footer-plugin-bannerHeight',
-    cfg.bannerHeight || 22
-  )
-  document.documentElement.style.setProperty(
-    '--banner-footer-plugin-footerSize',
-    cfg.footerSize || 0.5
-  )
-
-  scrollToTopOnceListIsReady()
-
-  const placeholder = document.getElementById('loadingPlaceholder')
-  const img = document.getElementById('randomImage')
-
   if (cfg.enableBanner) {
+    document.body.classList.add('hfs-with-banner')
+    document.documentElement.style.setProperty(
+      '--banner-footer-plugin-bannerHeight',
+      cfg.bannerHeight || 22
+    )
+
+    insertBannerHTML()
+    scrollToTopOnceListIsReady()
+
+    const placeholder = document.getElementById('loadingPlaceholder')
+    const img = document.getElementById('randomImage')
+
     if (cfg.bannerMode === 'file' && cfg.bannerFile) {
       const temp = new Image()
       temp.onload = () => {
@@ -71,6 +66,11 @@
     }
   }
 
+  document.documentElement.style.setProperty(
+    '--banner-footer-plugin-footerSize',
+    cfg.footerSize || 0.5
+  )
+
   if (cfg.enableFooter && cfg.footerText) {
     const footer = document.createElement('div')
     footer.className = 'footer-w3l'
@@ -81,7 +81,6 @@
     document.body.appendChild(footer)
   }
 
-  // ====== Utility Functions ======
   function insertBannerHTML() {
     const target = document.querySelector('#root > div') || document.body
     const banner = document.createElement('div')

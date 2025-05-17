@@ -31,15 +31,15 @@
   box-sizing: border-box;
   padding: 4px;
   overflow: hidden;
-  height: calc(var(--banner-footer-plugin-bannerHeight, 22) * 1vh);
   background: transparent;
-margin-bottom: 1px; /* ⬅️ leave gap below the banner */
+  margin-bottom: 1px;
 }
+
 
 /* Banner image */
 #banner img {
   width: 100%;
-  height: 100%;
+  height: calc(var(--banner-footer-plugin-bannerHeight, 22) * 1vh);
   display: block;
   object-fit: cover;
   object-position: center;
@@ -49,8 +49,9 @@ margin-bottom: 1px; /* ⬅️ leave gap below the banner */
   transition: opacity 0.4s ease-in-out;
   z-index: 10;
   position: relative;
-margin-left: -1.0px;
+  margin-left: -1px;
 }
+
 
 /* Footer layout and spacing */
 .footer-w3l {
@@ -63,7 +64,9 @@ margin-left: -1.0px;
 
 .footer-w3l p,
 .footer-w3l a {
-  color: var(--good-contrast);
+  color: var(--button-text);
   font-size: calc(var(--banner-footer-plugin-footerSize, 0.5) * 1em);
   margin: 0.2em 0;
 }
+
+
