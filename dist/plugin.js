@@ -3,7 +3,7 @@ exports.description = "Displays a customizable banner and footer, with optional 
 exports.apiRequired = 12.0
 exports.frontend_js = 'main.js'
 exports.frontend_css = 'style.css'
-exports.repo = "Hug3O/Banner-footer-plugin"
+exports.repo = "hugo529100/hfs-Banner-footer-plugin"
 
 
 exports.config = {
