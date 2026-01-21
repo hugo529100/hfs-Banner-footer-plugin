@@ -1,4 +1,4 @@
-exports.version = 2.2
+exports.version = 2.3
 exports.description = "Displays a customizable banner and footer, with optional network-based GIF filtering."
 exports.apiRequired = 12.0
 exports.frontend_js = 'main.js'
