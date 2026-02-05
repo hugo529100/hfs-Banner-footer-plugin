@@ -8,7 +8,7 @@
   border-radius: 0.4em;
   background-color: var(--faint-contrast);
   overflow: hidden;
-  z-index: 2;
+  z-index: 1;
 }
 .loading-placeholder::after {
   content: "";
@@ -32,7 +32,8 @@
   box-sizing: border-box;
   padding: 4px;
   overflow: hidden;
-  background: transparent;
+  /*background: transparent;*/
+  background: var(--bg);
   margin-bottom: 0px;
   /*border: 1px solid var(--faint-contrast);*/
   border-radius: 0.4em;
@@ -49,7 +50,7 @@
   object-position: center;
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
-  z-index: 10;
+  z-index: 2;
   position: relative;
   margin-left: -0px;
   border-radius: 0.2em;
