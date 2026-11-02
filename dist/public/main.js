@@ -21,17 +21,23 @@
     const placeholder = document.getElementById('loadingPlaceholder')
     const img = document.getElementById('bannerImage')
 
-    if (cfg.bannerMode === 'file' && cfg.bannerFile) {
+    // 統一載入並顯示圖片；onerror 時隱藏 placeholder
+    function renderBannerImage(url) {
+      if (!img) return
       const temp = new Image()
       temp.onload = () => {
-        img.src = cfg.bannerFile
+        img.src = url
         img.style.opacity = 1
-        placeholder.style.display = 'none'
+        if (placeholder) placeholder.style.display = 'none'
       }
       temp.onerror = () => {
-        placeholder.style.display = 'none'
+        if (placeholder) placeholder.style.display = 'none'
       }
-      temp.src = cfg.bannerFile
+      temp.src = url
+    }
+
+    if (cfg.bannerMode === 'file' && cfg.bannerFile) {
+      renderBannerImage(cfg.bannerFile)
     }
 
     if (cfg.bannerMode === 'folder' && cfg.bannerFolder) {
@@ -53,39 +59,40 @@
         return filename
       })
 
-      let images = cleanImages
+      const images = cleanImages
 
       if (images.length && img) {
         const STORAGE_KEY = 'banner-footer-plugin-index'
         let currentIndex = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10)
-        
+
         if (currentIndex >= images.length) {
           currentIndex = 0
         }
-        
-        const selected = images[currentIndex]
-        
+
+        // 顯示當前圖片
+        renderBannerImage(`${cfg.bannerFolder}/${images[currentIndex]}`)
+
+        // 記錄「下一次」要顯示的索引（保留原本的輪播行為）
         let nextIndex = currentIndex + 1
         if (nextIndex >= images.length) {
           nextIndex = 0
         }
         localStorage.setItem(STORAGE_KEY, nextIndex)
-        
-        // 使用相对路径拼接，确保與當前域名一致
-        const imageUrl = `${cfg.bannerFolder}/${selected}`
-        
-        const temp = new Image()
-        temp.onload = () => {
-          img.src = imageUrl
-          img.style.opacity = 1
-          placeholder.style.display = 'none'
-        }
-        temp.onerror = () => {
-          placeholder.style.display = 'none'
-        }
-        temp.src = imageUrl
+
+        // ★ 雙擊 banner 圖片切換到下一張
+        img.addEventListener('dblclick', () => {
+          const current = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10)
+          const index = current >= images.length ? 0 : current
+          renderBannerImage(`${cfg.bannerFolder}/${images[index]}`)
+
+          let next = index + 1
+          if (next >= images.length) {
+            next = 0
+          }
+          localStorage.setItem(STORAGE_KEY, next)
+        })
       } else {
-        placeholder.style.display = 'none'
+        if (placeholder) placeholder.style.display = 'none'
       }
     }
   }
