@@ -5,7 +5,6 @@ exports.frontend_js = 'main.js'
 exports.frontend_css = 'style.css'
 exports.repo = "hugo529100/hfs-Banner-footer-plugin"
 
-
 exports.config = {
   enableBanner: { type: 'boolean', label: 'Show banner section', defaultValue: true, frontend: true },
 
